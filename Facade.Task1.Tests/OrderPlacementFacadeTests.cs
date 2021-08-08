@@ -50,7 +50,7 @@ namespace Facade.Task1.Tests
             var productCatalogMock = new Mock<ProductCatalog>();
 
             productCatalogMock.Setup(c => c.GetProductDetails(productId)).Returns(product);
-            paymentSystemMock.Setup(c => c.MakePayment(It.IsAny<Payment>())).Callback<Payment>(payment => payments.Add(payment));
+            paymentSystemMock.Setup(c => c.MakePayment(It.IsAny<Payment>())).Callback<Payment>(payment => payments.Add(payment)).Returns(true);
             invoiceSystemMock.Setup(i => i.SendInvoice(It.IsAny<Invoice>())).Callback<Invoice>(invoice => invoices.Add(invoice));
 
             orderFacade = new OrderFacade(invoiceSystemMock.Object, paymentSystemMock.Object, productCatalogMock.Object);
